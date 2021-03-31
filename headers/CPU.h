@@ -40,8 +40,6 @@ public:
 
 	void LDA_ANDSetFlagStatus();
 
-	void CMPSetFlagStatus();
-
 	void LDXSetFlagStatus();
 
 	void LDYSetFlagStatus();

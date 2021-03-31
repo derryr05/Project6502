@@ -15,6 +15,7 @@ static constexpr Byte
 	Instruction_JSR_ABS = 0x20, // Complete
 	Instruction_LDA_IMM = 0xA9, // Complete
 	Instruction_LDA_ZP  = 0xA5, // Complete
+	Instruction_LDA_ZPX = 0xB5, // Complete
 	Instruction_LDX_IMM = 0xA2, // Complete
 	Instruction_LDX_ZP  = 0xA6,
 	Instruction_LDY_IMM = 0xA0, // Complete

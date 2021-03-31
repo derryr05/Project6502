@@ -76,25 +76,34 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 	} break;
 	case Instruction_LDA_ZP:
 	{
-		Byte address = FetchByte(clockCycle, memory);
+		Word address = ZeroPageAddress(clockCycle, memory);
 		accumulator = ReadByteAtAddress(clockCycle, address, memory);
 		LDA_ANDSetFlagStatus();
 	} break;
-	case Instruction_LDX_IMM:
+	case Instruction_LDA_ZPX:
 	{
-		Byte address = FetchByte(clockCycle, memory);
+		Byte address = ZeroPageAddress(clockCycle, memory);
+		address += xRegister;
+		clockCycle--;
+		accumulator = ReadByteAtAddress(clockCycle, address, memory);
+		LDA_ANDSetFlagStatus();
+	} break;
+	case Instruction_LDX_IMM: 
+	{
+		Byte value = FetchByte(clockCycle, memory);
+		xRegister = value;
+		LDXSetFlagStatus();
+	} break;
+	case Instruction_LDX_ZP: 
+	{
+		Word address = ZeroPageAddress(clockCycle, memory);
 		xRegister = ReadByteAtAddress(clockCycle, address, memory);
 		LDXSetFlagStatus();
 	} break;
-	case Instruction_LDX_ZP: // TODO
+	case Instruction_LDY_IMM: 
 	{
-		Word address = ZeroPageAddress(clockCycle, memory);
-		WriteByteAtAddress(xRegister, clockCycle, address, memory);
-	} break;
-	case Instruction_LDY_IMM:
-	{
-		Byte address = FetchByte(clockCycle, memory);
-		yRegister = ReadByteAtAddress(clockCycle, address, memory);
+		Byte value = FetchByte(clockCycle, memory);
+		yRegister = value;
 		LDYSetFlagStatus();
 	} break;
 	case Instruction_STA_ZP:
