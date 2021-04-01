@@ -76,7 +76,7 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 	} break;
 	case Instruction_LDA_ZP:
 	{
-		Word address = ZeroPageAddress(clockCycle, memory);
+		Byte address = ZeroPageAddress(clockCycle, memory);
 		accumulator = ReadByteAtAddress(clockCycle, address, memory);
 		LDA_ANDSetFlagStatus();
 	} break;
@@ -96,7 +96,7 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 	} break;
 	case Instruction_LDX_ZP: 
 	{
-		Word address = ZeroPageAddress(clockCycle, memory);
+		Byte address = ZeroPageAddress(clockCycle, memory);
 		xRegister = ReadByteAtAddress(clockCycle, address, memory);
 		LDXSetFlagStatus();
 	} break;
@@ -106,9 +106,26 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 		yRegister = value;
 		LDYSetFlagStatus();
 	} break;
+	case Instruction_LDY_ZP:
+	{
+		Byte address = ZeroPageAddress(clockCycle, memory);
+		yRegister = ReadByteAtAddress(clockCycle, address, memory);
+		LDYSetFlagStatus();
+	} break;
+	case Instruction_NOP_IMP:
+	{
+		clockCycle--;
+	} break;
 	case Instruction_STA_ZP:
 	{
 		Word address = ZeroPageAddress(clockCycle, memory);
+		WriteByteAtAddress(accumulator, clockCycle, address, memory);
+	} break;
+	case Instruction_STA_ZPX:
+	{
+		Byte address = ZeroPageAddress(clockCycle, memory);
+		address += xRegister;
+		clockCycle--;
 		WriteByteAtAddress(accumulator, clockCycle, address, memory);
 	} break;
 	case Instruction_STX_ZP:
@@ -116,9 +133,23 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 		Word address = ZeroPageAddress(clockCycle, memory);
 		WriteByteAtAddress(xRegister, clockCycle, address, memory);
 	} break;
+	case Instruction_STX_ZPY:
+	{
+		Byte address = ZeroPageAddress(clockCycle, memory);
+		address += yRegister;
+		clockCycle--;
+		WriteByteAtAddress(xRegister, clockCycle, address, memory);
+	} break;
 	case Instruction_STY_ZP:
 	{
 		Word address = ZeroPageAddress(clockCycle, memory);
+		WriteByteAtAddress(yRegister, clockCycle, address, memory);
+	} break;
+	case Instruction_STY_ZPX:
+	{
+		Byte address = ZeroPageAddress(clockCycle, memory);
+		address += xRegister;
+		clockCycle--;
 		WriteByteAtAddress(yRegister, clockCycle, address, memory);
 	} break;
 	default:

@@ -22,7 +22,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{7b886d84-f707-4577-b7fc-6e46814fdb52}</ProjectGuid>
+    <ProjectGuid>{b5df697d-2ca3-4be3-91ee-61ab6a71abaf}</ProjectGuid>
     <RootNamespace>EmulatorTest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>

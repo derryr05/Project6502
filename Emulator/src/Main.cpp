@@ -9,9 +9,9 @@ int main()
 	cpu.Reset(memory);
 
 	// Assembly code START ------------------------------
-	memory.data[0xFFFC] = Instruction_LDA_ZPX;
-	cpu.xRegister = 0xFF;
-	memory.data[0x00FF] = 0x21;
+	memory.data[0xFFFC] = Instruction_NOP_IMP;
+	memory.data[0xFFFD] = Instruction_LDA_IMM;
+	memory.data[0xFFFE] = 0x82;
 	cpu.Execute(4, memory);
 	// Assembly code END --------------------------------
 	
