@@ -22,19 +22,19 @@ public:
 	Byte overflow : 1;
 	Byte negative : 1;
 
-	void Reset(Memory& memory);
+	void Reset(Memory &memory);
 
-	Byte FetchByte(SignedDWord& clockCycle, const Memory& memory);
+	Byte FetchByte(SignedDWord& clockCycle, const Memory &memory);
 
-	Word FetchWord(SignedDWord& clockCycle, const Memory& memory);
+	Word FetchWord(SignedDWord& clockCycle, const Memory &memory);
 
-	Byte ReadByteAtAddress(SignedDWord& clockCycle, Byte address, const Memory& memory);
+	Byte ReadByteAtAddress(SignedDWord& clockCycle, Byte address, const Memory &memory);
 
-	void WriteByteAtAddress(Byte value, SignedDWord &clockCycle, Word address, Memory& memory);
+	void WriteByteAtAddress(Byte value, SignedDWord &clockCycle, Word address, Memory &memory);
 
-	void Execute(SignedDWord clockCycle, Memory& memory);
+	void Execute(SignedDWord clockCycle, Memory &memory);
 
-	void SwitchInstruction(SignedDWord& clockCycle, Memory& memory);
+	void SwitchInstruction(SignedDWord& clockCycle, Memory &memory);
 
 	Word ZeroPageAddress(SignedDWord &clockCycle, const Memory &memory);
 
