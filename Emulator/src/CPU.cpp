@@ -1,12 +1,18 @@
 #include <iostream>
 #include <string>
-
+#include <vector>
 #include "../headers/CPU.h"
 
 void CPU::Reset(Memory &memory)
 {
+	opcode =
+	{
+		{"ADC_IMM", 0x69, 2}, {"ADC_ZP", 0x65, 3}, {"ADC_ZPX", 0x75, 4}, {"ADC_ABS", 0x6D, 4}, {"ADC_ABX", 0x7D, 5}, {"ADC_ABY", 0x79, 5}, {"ADC_INX", 0x61, 6}, {"ADC_INY", 0x71, 6},
+		{"STX_ABS", 0x8E, 4}
+	};
+
 	programCounter = 0xFFFC;
-	stackPointer = 0x100;
+	stackPointer = 0x0100;
 	carry = zero = interruptDisable = decimal = break_ = overflow = negative = 0;
 	accumulator = xRegister = yRegister = 0;
 	memory.Initialise();
@@ -182,6 +188,14 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 		clockCycle--;
 		WriteByteAtAddress(xRegister, clockCycle, address, memory);
 	} break;
+	case Instruction_STX_ABS:
+	{
+		std::cout << "STX" << " ";
+		Word address = AbsAddress(clockCycle, memory);
+		int i = address;
+		std::cout << "#$" << std::hex << std::uppercase << i << std::endl;
+		WriteByteAtAddress(xRegister, clockCycle, address, memory);
+	} break;
 	case Instruction_STY_ZP:
 	{
 		std::cout << "STY" << " ";
@@ -200,6 +214,14 @@ void CPU::SwitchInstruction(SignedDWord& clockCycle, Memory& memory)
 		clockCycle--;
 		WriteByteAtAddress(yRegister, clockCycle, address, memory);
 	} break;
+	case Instruction_STY_ABS:
+	{
+		std::cout << "STY" << " ";
+		Word address = AbsAddress(clockCycle, memory);
+		int i = address;
+		std::cout << "#$" << std::hex << std::uppercase << i << std::endl;
+		WriteByteAtAddress(yRegister, clockCycle, address, memory);
+	} break;
 	default:
 		printf("Instruction not supported");
 	}
@@ -210,6 +232,12 @@ Word CPU::ZeroPageAddress(SignedDWord& clockCycle, const Memory& memory)
 {
 	Byte zeroPageAddr = FetchByte(clockCycle, memory);
 	return zeroPageAddr;
+}
+
+Word CPU::AbsAddress(SignedDWord& clockCycle, const Memory& memory)
+{
+	Word address = FetchWord(clockCycle, memory);
+	return address;
 }
 
 void CPU::LDA_ANDSetFlagStatus()

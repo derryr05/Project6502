@@ -141,13 +141,21 @@ static constexpr Byte
 	Instruction_STA_INY = 0x91,
 	Instruction_STX_ZP  = 0x86, // Complete
 	Instruction_STX_ZPY = 0x96, // Complete
-	Instruction_STX_ABS = 0x8E,
+	Instruction_STX_ABS = 0x8E, // Complete
 	Instruction_STY_ZP  = 0x84, // Complete
 	Instruction_STY_ZPX = 0x94, // Complete
-	Instruction_STY_ABS = 0x8C,
+	Instruction_STY_ABS = 0x8C, // Complete
 	Instruction_TAX_IMP = 0xAA,
 	Instruction_TAY_IMP = 0xA8,
 	Instruction_TSX_IMP = 0xBA,
 	Instruction_TXA_IMP = 0x8A,
 	Instruction_TXS_IMP = 0x9A,
 	Instruction_TYA_IMP = 0x98;
+
+struct Instruction
+{
+	std::string name;
+	Byte opcodeValue;
+	SignedDWord clockCycle;
+};
+

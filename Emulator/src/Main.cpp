@@ -12,11 +12,17 @@ int main()
 {
 	cpu.Reset(memory);
 
-	memory.data[0xFFFC] = Instruction_LDA_IMM;
-	memory.data[0xFFFD] = 0xFF;
+	// Storing value of X Register into Memory Address 0xABCD
+	memory.data[0xFFFC] = cpu.opcode[8].opcodeValue;
+	memory.data[0xFFFD] = 0xCD;
+	memory.data[0xFFFE] = 0xAB;
 
-	cpu.Execute(2, memory);
+	cpu.xRegister = 0x91;
 
+	// memory.data[0xFFFE] = Instruction_STA_ZP;
+	cpu.Execute(cpu.opcode[8].clockCycle, memory);
+
+	std::cout << "Memory address[0xABCD]: " << std::hex << (int)memory.data[0xABCD] << std::endl;
 	PrintFinalOutput();
 
 	return 0;

@@ -3,6 +3,7 @@
 #include "Definitions.h"
 #include "Memory.h"
 #include "Instructions.h"
+#include <vector>
 
 class CPU
 {
@@ -22,6 +23,8 @@ public:
 	Byte overflow : 1;
 	Byte negative : 1;
 
+	std::vector<Instruction> opcode;
+
 	void Reset(Memory &memory);
 
 	Byte FetchByte(SignedDWord& clockCycle, const Memory &memory);
@@ -38,9 +41,12 @@ public:
 
 	Word ZeroPageAddress(SignedDWord &clockCycle, const Memory &memory);
 
+	Word AbsAddress(SignedDWord& clockCycle, const Memory& memory);
+
 	void LDA_ANDSetFlagStatus();
 
 	void LDXSetFlagStatus();
 
 	void LDYSetFlagStatus();
+
 };
