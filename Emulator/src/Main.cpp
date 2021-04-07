@@ -1,8 +1,10 @@
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include "../headers/CPU.h"
 #include "../headers/Memory.h"
 
+// Forward declarations
 CPU cpu;
 Memory memory;
 
@@ -13,14 +15,13 @@ int main()
 	cpu.Reset(memory);
 
 	// Storing value of X Register into Memory Address 0xABCD
-	memory.data[0xFFFC] = cpu.opcode[8].opcodeValue;
+	memory.data[0xFFFC] = cpu.opcode[32].opcodeValue;
 	memory.data[0xFFFD] = 0xCD;
 	memory.data[0xFFFE] = 0xAB;
 
 	cpu.xRegister = 0x91;
 
-	// memory.data[0xFFFE] = Instruction_STA_ZP;
-	cpu.Execute(cpu.opcode[8].clockCycle, memory);
+	cpu.Execute(cpu.opcode[32].clockCycle, memory);
 
 	std::cout << "Memory address[0xABCD]: " << std::hex << (int)memory.data[0xABCD] << std::endl;
 	PrintFinalOutput();

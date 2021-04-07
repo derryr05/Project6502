@@ -1,6 +1,7 @@
 #include "../headers/Definitions.h"
 #include "../headers/Memory.h"
 
+// Initialise memory to 0
 void Memory::Initialise()
 {
 	for (DWord i = 0; i < Memory::MAX_MEMORY; i++)

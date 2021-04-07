@@ -23,7 +23,10 @@ public:
 	Byte overflow : 1;
 	Byte negative : 1;
 
+	// Stores all instructions along with their clock cycles
 	std::vector<Instruction> opcode;
+
+	void OpcodeInitialise();
 
 	void Reset(Memory &memory);
 
@@ -39,14 +42,14 @@ public:
 
 	void SwitchInstruction(SignedDWord& clockCycle, Memory &memory);
 
-	Word ZeroPageAddress(SignedDWord &clockCycle, const Memory &memory);
-
-	Word AbsAddress(SignedDWord& clockCycle, const Memory& memory);
-
 	void LDA_ANDSetFlagStatus();
 
 	void LDXSetFlagStatus();
 
 	void LDYSetFlagStatus();
 
+	// Addressing modes
+	Word ZeroPageAddress(SignedDWord& clockCycle, const Memory& memory);
+
+	Word AbsAddress(SignedDWord& clockCycle, const Memory& memory);
 };
